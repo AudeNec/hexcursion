@@ -1,38 +1,23 @@
-import { useState } from "react";
-import { HexTile } from "./Hexagon";
 import type { Hexagon } from "@/classes/map";
 
-const HexMap = ({ tiles }: { tiles: Array<Hexagon> }) => {
-  const [selectedCellId, setSelectedCellId] = useState<number | null>(null);
-  const [hoveredCellId, setHoveredCellId] = useState<number | null>(null);
+import { HexTile } from "./Hexagon";
 
-  const minX =
-    Math.min(...tiles.flatMap((t) => t.polygon.map((p) => p[0]))) / 2;
-  const maxX =
-    Math.max(...tiles.flatMap((t) => t.polygon.map((p) => p[0]))) / 2;
-  const minY =
-    Math.min(...tiles.flatMap((t) => t.polygon.map((p) => p[1]))) / 2;
-  const maxY =
-    Math.max(...tiles.flatMap((t) => t.polygon.map((p) => p[1]))) / 2;
+const HexMap = ({ tiles }: { tiles: Array<Hexagon> }) => {
+  const minX = Math.min(...tiles.flatMap((t) => t.polygon.map((p) => p[0])));
+  const maxX = Math.max(...tiles.flatMap((t) => t.polygon.map((p) => p[0])));
+  const minY = Math.min(...tiles.flatMap((t) => t.polygon.map((p) => p[1])));
+  const maxY = Math.max(...tiles.flatMap((t) => t.polygon.map((p) => p[1])));
 
   return (
-    <div className="w-[800px] h-[600px] w-full overflow-scroll border shadow-lg">
+    <div className="w-[800px] h-[600px] w-full overflow-scroll border rounded-xl">
       <svg
-        width={1000}
-        height={1000}
+        width={2000}
+        height={2000}
         viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`}
         className="block"
       >
         {tiles.map((tile) => (
-          <HexTile
-            key={tile.cellId}
-            tile={tile}
-            isSelected={tile.cellId === selectedCellId}
-            isHovered={tile.cellId === hoveredCellId}
-            onClick={() => setSelectedCellId(tile.cellId)}
-            onHoverEnter={() => setHoveredCellId(tile.cellId)}
-            onHoverLeave={() => setHoveredCellId(null)}
-          />
+          <HexTile key={tile.cellId} tile={tile} />
         ))}
       </svg>
     </div>

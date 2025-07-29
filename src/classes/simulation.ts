@@ -1,3 +1,5 @@
+import simulation from "../assets/simulation.json";
+
 export type Simulation = {
   name: string;
   config: {
@@ -49,12 +51,21 @@ export type Simulation = {
         X: number;
         Y: number;
         Z: number;
+        oddr_X: number;
+        oddr_Y: number;
+        oddr_Z: number;
         description: string;
         durability: number;
         age: number;
         sightRadius: number;
         passability: "passable" | "impassable";
+        created_at: string;
+        updated_at: string;
       };
     };
   };
+};
+
+export const getSimulation = () => {
+  return simulation as Simulation;
 };
